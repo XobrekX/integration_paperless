@@ -4,9 +4,9 @@ import { translate as t } from '@nextcloud/l10n'
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
 
-async function uploadFile(file) {
+async function uploadFile(node) {
 	try {
-		await axios.post(generateOcsUrl(`/apps/integration_paperless/upload/${file.fileid}`))
+		await axios.post(generateOcsUrl(`/apps/integration_paperless/upload/${node.fileid}`))
 		return true
 	} catch (e) {
 		console.error(e)
@@ -22,11 +22,11 @@ registerFileAction(
 		},
 		iconSvgInline: () => PaperlessLogo,
 		enabled: () => true,
-		exec: async (file) => {
-			return await uploadFile(file)
+		exec: async (context) => {
+			return await uploadFile(context.nodes[0])
 		},
-		execBatch: async (files) => {
-			return Promise.all(files.map((file) => uploadFile(file)))
+		execBatch: async (context) => {
+			return Promise.all(context.nodes.map(uploadFile))
 		},
 	}),
 )

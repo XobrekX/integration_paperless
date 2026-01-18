@@ -33,7 +33,7 @@ class UploadController extends OCSController {
 			$this->apiService->sendFile($fileId);
 			return new DataResponse(null);
 		} catch (Exception $e) {
-			$this->logger->debug($e->getMessage());
+			$this->logger->error($e->getMessage());
 			return new DataResponse(null, Http::STATUS_INTERNAL_SERVER_ERROR);
 		}
 	}
