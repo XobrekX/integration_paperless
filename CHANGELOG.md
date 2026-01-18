@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.9] - 2025-01-18
+### Fixed
+- Upload to Paperless-ngx instances with Gotenberg
+
 ## [1.0.8] - 2025-01-15
 ### Added
 - Support Nextcloud 33
