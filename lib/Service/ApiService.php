@@ -51,19 +51,23 @@ class ApiService {
 		}
 		$file = $files[0];
 
-		$arguments = [
-			'document' => $file->fopen('r'),
-			'title' => $file->getName(),
-		];
-
 		$this->client->post($this->config->url . '/api/documents/post_document/',
 			[
 				'headers' => $this->getAuthorizationHeaders(),
-				'multipart' => array_map(
-					static fn (string $key, mixed $value) => ['name' => $key, 'contents' => $value],
-					array_keys($arguments),
-					array_values($arguments),
-				),
+				'multipart' => [
+					[
+						'name' => 'document',
+						'contents' => $file->fopen('r'),
+						'filename' => $file->getName(),
+						'headers' => [
+							'Content-Type' => $file->getMimeType(),
+						],
+					],
+					[
+						'name' => 'title',
+						'contents' => $file->getName(),
+					],
+				],
 			],
 		);
 	}
