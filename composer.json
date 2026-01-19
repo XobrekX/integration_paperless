@@ -7,12 +7,12 @@
 		}
 	},
 	"require": {
-		"php": "^8.0",
+		"php": "^8.2",
 		"nextcloud/coding-standard": "^1.2",
 		"bamarni/composer-bin-plugin": "^1.8"
 	},
 	"require-dev": {
-		"nextcloud/ocp": "dev-stable28"
+		"nextcloud/ocp": "dev-master"
 	},
 	"scripts": {
 		"post-install-cmd": [
@@ -31,7 +31,7 @@
 			"bamarni/composer-bin-plugin": true
 		},
 		"platform": {
-			"php": "8.0"
+			"php": "8.2"
 		}
 	}
 }

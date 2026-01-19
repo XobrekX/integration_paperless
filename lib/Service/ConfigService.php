@@ -6,13 +6,13 @@ namespace OCA\Paperless\Service;
 
 use OCA\Paperless\AppInfo\Application;
 use OCA\Paperless\Model\Config;
-use OCP\IConfig;
+use OCP\Config\IUserConfig;
 use OCP\PreConditionNotMetException;
 
 class ConfigService {
 	/** @psalm-suppress PossiblyUnusedMethod */
 	public function __construct(
-		private IConfig $config,
+		private IUserConfig $userConfig,
 		private string $userId,
 	) {
 	}
@@ -23,7 +23,7 @@ class ConfigService {
 	public function setConfig(Config $config): void {
 		$serialized = $config->jsonSerialize();
 		foreach ($serialized as $key => $value) {
-			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+			$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $value);
 		}
 	}
 
@@ -35,6 +35,6 @@ class ConfigService {
 	}
 
 	private function getConfigValue(string $key): string {
-		return $this->config->getUserValue($this->userId, Application::APP_ID, $key);
+		return $this->userConfig->getValueString($this->userId, Application::APP_ID, $key);
 	}
 }
